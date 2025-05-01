@@ -1,20 +1,20 @@
-import { Table } from "@/shared/ui"
-import { useGetPost } from "../../api/use-get-post"
-import { PostTableTags } from "./PostTableTags"
-import { PostTableReactions } from "../table-row/PostTableReactions"
-import { PostTableActions } from "../table-row/PostTableActions"
-import { highlightText } from "@/shared/lib/highlight-text"
-import { useQueryParamsControl } from "../../../../app/providers/QueryParamsProvider"
-import { useState } from "react"
-import { UserInfoModal } from "@/features/user/ui/UserInfoModal"
-import { usePostControl } from "../../query/PostDataProvider"
+import { Table } from "@/shared/ui";
+import { useGetPost } from "../../api/use-get-post";
+import { PostTableTags } from "./PostTableTags";
+import { PostTableReactions } from "../table-row/PostTableReactions";
+import { PostTableActions } from "../table-row/PostTableActions";
+import { highlightText } from "@/shared/lib/highlight-text";
+import { useQueryParamsControl } from "../../../../app/providers/QueryParamsProvider";
+import { useState } from "react";
+import { UserInfoModal } from "@/features/user/ui/UserInfoModal";
+import { usePostControl } from "../../query/PostDataProvider";
 
 export const PostTableBody = () => {
-  const [selectUserId, setSelectUserId] = useState<number | null>(null)
-  const { limit, skip } = useQueryParamsControl()
-  const { posts } = usePostControl()
-  const { isFetched } = useGetPost({ limit, skip })
-  const { searchQuery } = useQueryParamsControl()
+  const [selectUserId, setSelectUserId] = useState<number | null>(null);
+  const { limit, skip } = useQueryParamsControl();
+  const { posts } = usePostControl();
+  const { isFetched } = useGetPost({ limit, skip });
+  const { searchQuery } = useQueryParamsControl();
 
   return (
     <>
@@ -50,7 +50,7 @@ export const PostTableBody = () => {
                 <PostTableReactions reactions={post.reactions} />
               </Table.Cell>
               <Table.Cell>
-                <PostTableActions />
+                <PostTableActions post={post} />
               </Table.Cell>
             </Table.Row>
           ))
@@ -58,5 +58,5 @@ export const PostTableBody = () => {
       </Table.Body>
       {selectUserId && <UserInfoModal setSelectUserId={setSelectUserId} userId={selectUserId} />}
     </>
-  )
-}
+  );
+};

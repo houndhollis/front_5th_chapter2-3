@@ -1,10 +1,11 @@
+/* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState, ReactNode, useMemo } from "react"
 
 interface PostQueryContextType {
-  skip: number
-  setSkip: (skip: number) => void
-  limit: number
-  setLimit: (limit: number) => void
+  skip: string
+  setSkip: (skip: string) => void
+  limit: string
+  setLimit: (limit: string) => void
   searchQuery: string
   setSearchQuery: (query: string) => void
   sortBy: string
@@ -17,7 +18,7 @@ interface PostQueryContextType {
 
 const PostQueryContext = createContext<PostQueryContextType | undefined>(undefined)
 
-export const usePostControl = () => {
+export const useQueryParamsControl = () => {
   const controls = useContext(PostQueryContext)
   if (!controls) {
     throw new Error("post 내부에서 사용하세요.")
@@ -29,11 +30,11 @@ interface PostQueryProviderProps {
   children: ReactNode
 }
 
-export const PostQueryProvider = ({ children }: PostQueryProviderProps) => {
+export const QueryParamsProvider = ({ children }: PostQueryProviderProps) => {
   const queryParams = new URLSearchParams(window.location.search)
 
-  const [skip, setSkip] = useState(parseInt(queryParams.get("skip") || "0"))
-  const [limit, setLimit] = useState(parseInt(queryParams.get("limit") || "10"))
+  const [skip, setSkip] = useState(queryParams.get("skip") || "0")
+  const [limit, setLimit] = useState(queryParams.get("limit") || "10")
   const [searchQuery, setSearchQuery] = useState(queryParams.get("search") || "")
   const [sortBy, setSortBy] = useState(queryParams.get("sortBy") || "")
   const [sortOrder, setSortOrder] = useState(queryParams.get("sortOrder") || "asc")

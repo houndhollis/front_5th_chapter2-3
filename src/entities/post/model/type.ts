@@ -4,6 +4,7 @@
 export interface GetPostsRequestParams {
   limit: string
   skip: string
+  searchQuery?: string
 }
 
 /**
@@ -35,5 +36,23 @@ export interface UserType {
  * 응답 데이터
  */
 export interface GetPostsResponseType extends PostType {
-  author: UserType
+  author?: UserType
+}
+
+/**
+ * Tag 데이터
+ */
+export interface GetTagsResponseType {
+  name: string
+  slug: string
+  url: string
+}
+
+/**
+ * Post 추가
+ */
+export interface AddPostType {
+  title: string
+  body: string
+  userId: number
 }
